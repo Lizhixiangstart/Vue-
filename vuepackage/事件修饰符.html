@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+
+    <style>
+        *{
+            margin-top: 20px;
+        }
+        .demo1{
+            height: 50px;
+            background:skyblue ;
+        }
+        .box1{
+            padding: 5px;
+            background-color: skyblue;
+        }
+        .box2{
+           padding: 5px;
+           background-color: orange;
+        }
+        .list{
+            width: 200xp;
+            height: 200px;
+            background-color: peru;
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        Vue中的事件修饰符：
+            1.prevent:阻止默认事件(常用)
+            2.stop：阻止事件冒泡(常用)
+            3.once：事件只触发一次(常用)
+            4.capture：使用事件的捕获模式
+            5.self：只有event.target是当前操作元素才触发事件(用于操作自己)
+            6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕
+
+     -->
+    <div id="root">
+        <a href="http://www.baidu.com" @click.prevent="showInfo">点击就送</a>
+
+        <div @click="showInfo" class="demo1">
+            <button @click.stop="showInfo">点击提示信息</button>
+        </div>
+
+        <button @click.once="showInfo">点击提示信息</button>
+
+
+
+        <!-- 冒泡事件执行顺序反过来 -->
+        <div class="box1" @click.capture="showMessage(1)">
+            box1
+            <div class="box2" @click="showMessage(2)">
+                box2
+            </div>
+        </div>
+
+        
+        <!-- 事件立即执行，然后再执行回调函数 -->
+        <ul @wheel.passive="demo" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+
+
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        var vm = new Vue({
+            el:'#root',
+            data:{
+                name:'尚硅谷'
+            },
+            methods:{
+                showInfo(e){
+                    // e.stopPropagation=false;
+                    alert('同学你好')
+                },
+                showMessage(msg){
+                    console.log(msg);
+                },
+                demo(){
+                    for(let i=0;i<100000;i++){
+                        console.log("#");
+                    }
+                    console.log('累坏了');
+                }
+            }
+        })
+    </script>
+</body>
+</html>
