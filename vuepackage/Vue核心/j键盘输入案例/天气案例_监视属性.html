@@ -11,6 +11,10 @@
     <div id="root">
         <h2>今天天气很{{info}} </h2>
         <button @click="changeWeather">切换天气</button>
+        <!-- 
+
+            
+         -->
     </div>
     <script>
         new Vue({
@@ -25,9 +29,23 @@
             },
             methods: {
                     changeWeather(){
-                        this.isHot=!this.isHot;
-                    }
+                        return this.isHot = !this.isHot;
+                    }   
                 },
+            /* watch:{
+                isHot:{
+                    immediate:true,//初始化时，让handler调用
+                    //handler什么时候调用？当isHot发生改变时
+                    handler(newVal,oldVal){
+                        console.log('isHot被修改了',newVal,oldVal);
+                    }
+                }
+            } */
+        })
+        vm.$watch('isHot',{
+            handler(newVal,oldVal){
+                        console.log('isHot被修改了',newVal,oldVal);
+                    }
         })
     </script>
 </body>

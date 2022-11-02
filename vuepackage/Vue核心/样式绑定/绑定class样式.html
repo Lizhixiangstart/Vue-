@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+    <style>
+        .basic{
+            width: 100px;
+            height: 100px;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .pink{
+            background-color: pink;
+        }
+        .orange{
+            background-color: orange;
+        }
+
+        .atguigu1{
+            border-radius: 10px;
+            background-color: aqua;
+        }
+        .atguigu2{
+            border-radius: 25px;
+            background-color: darkolivegreen;
+        }
+        .atguigu1{
+            border-radius: 25px;
+            background-color: black;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- 绑定class样式，字符串写法，适用于样式的类名不确定，需要动态指定 -->
+        <div class="basic" :class="color" @click="changeColor" >{{name}}</div>
+        <br><br>
+        <!-- 绑定class样式，数组写法，适用于样式个数不确定，名字也不能确定 -->
+        <div class="basic" :class="classArr"> {{name}} </div>
+        <!-- 绑定class的对象写法，适用于绑定的样式个数确定，名字也确定，但是要动态决定用不用 -->
+        <div class="basic" :class="{'atguigu1':true,'atguigu2':true}">{{name}}</div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                name:'尚硅谷',
+                color:'red',//长度确定，更改字符串的值
+                classArr:['atguigu1','atguigu2','atguigu2'],//长度不确定，样式不确定，利用数组绑定样式
+                classObj:{
+                    //长度确定，样式也确定，从中选取，用false和true决定用不用
+                    atguigu1:false,
+                    atguigu2:false
+                }
+            },
+            methods: {
+                changeColor(){
+                    const arr = ['red','green','blue','pink','orange'];
+                    let index = Math.floor((Math.random()*5));
+                    console.log(index);
+                    this.color=arr[index];
+                }
+            },
+            
+            
+        })
+    </script>
+</body>
+</html>
